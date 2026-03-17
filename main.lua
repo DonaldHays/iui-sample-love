@@ -5,17 +5,23 @@ end
 local iui = require "lib.iui"
 local backend = require "lib.love-iui"
 
-local sampleMain = require "sample"
+local sample = require "sample"
 
 function love.load()
     iui.load(backend)
+
+    sample.load({
+        gameSunsetImage = love.graphics.newImage(
+            "sample/assets/game-sunset.png"
+        )
+    })
 end
 
 function love.update(dt)
     iui.beginFrame(dt)
     iui.beginWindow(love.graphics.getDimensions())
 
-    sampleMain()
+    sample.main()
 
     iui.endWindow()
     iui.endFrame()
