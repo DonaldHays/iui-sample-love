@@ -18,6 +18,10 @@ function love.load()
 end
 
 function love.update(dt)
+    if love.keyboard.isDown("escape") then
+        love.event.quit()
+    end
+
     iui.beginFrame(dt)
     iui.beginWindow(love.graphics.getDimensions())
 
