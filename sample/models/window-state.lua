@@ -1,21 +1,26 @@
-local iui = require "lib.iui"
+local MainTabWindowState = require "sample.features.main-tab.models.window-state"
 
 --- @alias TabValue "tabA" | "tabB" | "tabC" | "tabD"
 
+--- @class ImageTabWindowState
+--- @field leftSplitValue number
+--- @field rightSplitValue number
+
 --- @class SampleWindowState
 --- @field selectedTab TabValue
---- @field primarySplitValue number
---- @field primaryScrollManager IUIScrollManager
---- @field imageRightSplitValue number
+--- @field mainTab MainTabWindowState
+--- @field imageTab ImageTabWindowState
 local SampleWindowState = {}
 
 function SampleWindowState.new()
     --- @type SampleWindowState
     return {
         selectedTab = "tabA",
-        primarySplitValue = 200,
-        primaryScrollManager = iui.newScrollManager(),
-        imageRightSplitValue = 300,
+        mainTab = MainTabWindowState.new(),
+        imageTab = {
+            leftSplitValue = 200,
+            rightSplitValue = 300,
+        }
     }
 end
 

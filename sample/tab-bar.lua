@@ -1,6 +1,6 @@
 local iui = require "lib.iui"
 
-local tabSplit = require "sample.tab-split"
+local tabMain = require "sample.features.main-tab.main-tab"
 local tabDisabled = require "sample.tab-disabled"
 local tabImage = require "sample.tab-image"
 
@@ -27,7 +27,7 @@ local function sampleTabBar()
         end,
         function()
             if windowState.selectedTab == "tabA" then
-                tabSplit()
+                tabMain()
             elseif windowState.selectedTab == "tabB" then
                 tabDisabled()
             elseif windowState.selectedTab == "tabC" then

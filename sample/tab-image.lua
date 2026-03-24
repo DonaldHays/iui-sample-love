@@ -6,15 +6,17 @@ local function tabImage()
 
     local assets = iui.style["assets"]           --- @type SampleAssets
 
+    local tabWinState = windowState.imageTab
+
     iui.style.push()
     iui.style["splitMinEdge"] = 200
     iui.style["splitMaxEdge"] = 200
     iui.style["splitSide"] = "max"
 
-    windowState.imageRightSplitValue = iui.splitView(
+    tabWinState.rightSplitValue = iui.splitView(
         "imageSplit",
         "horiz",
-        windowState.imageRightSplitValue,
+        tabWinState.rightSplitValue,
         function()
             local x, y, w, h = iui.layout.getPanelBounds()
             local margin = iui.style["margin"]
