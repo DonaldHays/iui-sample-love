@@ -1,7 +1,7 @@
 local iui = require "lib.iui"
 
-local SampleAppState = require "sample.app-state"
-local SampleWindowState = require "sample.window-state"
+local SampleAppState = require "sample.models.app-state"
+local SampleWindowState = require "sample.models.window-state"
 
 local sampleMenuBar = require "sample.menu-bar"
 local sampleTabBar = require "sample.tab-bar"

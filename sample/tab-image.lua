@@ -11,10 +11,10 @@ local function tabImage()
     iui.style["splitMaxEdge"] = 200
     iui.style["splitSide"] = "max"
 
-    windowState.imageSplitValue = iui.splitView(
+    windowState.imageRightSplitValue = iui.splitView(
         "imageSplit",
         "horiz",
-        windowState.imageSplitValue,
+        windowState.imageRightSplitValue,
         function()
             local x, y, w, h = iui.layout.getPanelBounds()
             local margin = iui.style["margin"]

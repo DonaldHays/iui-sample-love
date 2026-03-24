@@ -6,7 +6,7 @@ local iui = require "lib.iui"
 --- @field selectedTab TabValue
 --- @field primarySplitValue number
 --- @field primaryScrollManager IUIScrollManager
---- @field imageSplitValue number
+--- @field imageRightSplitValue number
 local SampleWindowState = {}
 
 function SampleWindowState.new()
@@ -15,7 +15,7 @@ function SampleWindowState.new()
         selectedTab = "tabA",
         primarySplitValue = 200,
         primaryScrollManager = iui.newScrollManager(),
-        imageSplitValue = 300,
+        imageRightSplitValue = 300,
     }
 end
 
