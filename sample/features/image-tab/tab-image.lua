@@ -1,76 +1,38 @@
 local iui = require "lib.iui"
 
+local simple = require "sample.features.image-tab.simple"
+local nineSlice = require "sample.features.image-tab.nine-slice"
+
 local function tabImage()
     local windowState = iui.style["windowState"] --- @type SampleWindowState
-    local appState = iui.style["appState"]       --- @type SampleAppState
-
-    local assets = iui.style["assets"]           --- @type SampleAssets
-
     local tabWinState = windowState.imageTab
-    local tabState = appState.imageTab
 
     iui.style.push()
     iui.style["splitMinEdge"] = 200
     iui.style["splitMaxEdge"] = 200
-    iui.style["splitSide"] = "max"
+    iui.style["splitSide"] = "min"
 
-    tabWinState.rightSplitValue = iui.splitView(
-        "imageSplit",
+    tabWinState.leftSplitValue = iui.splitView(
+        "imageLeftSplit",
         "horiz",
-        tabWinState.rightSplitValue,
+        tabWinState.leftSplitValue,
         function()
-            local x, y, w, h = iui.layout.getPanelBounds()
-            local margin = iui.style["margin"]
+            iui.label("Image")
 
-            iui.layout.beginRow({ kind = "dynamic", count = 1 }, h - margin * 2)
+            tabWinState.selection = iui.radio(
+                "Simple", tabWinState.selection, "simple"
+            )
 
-            iui.style.push()
-            iui.style["imageFilter"] = tabState.imageFilter
-            iui.style["imageMode"] = tabState.imageFillMode
-            iui.style["imageClip"] = tabState.imageClip
-
-            iui.image(assets.gameSunsetImage)
-
-            iui.style.pop()
+            tabWinState.selection = iui.radio(
+                "9-Slice", tabWinState.selection, "9slice"
+            )
         end,
         function()
-            iui.label("Filter")
-            tabState.imageFilter = iui.radio(
-                "Nearest", tabState.imageFilter, "nearest"
-            )
-
-            tabState.imageFilter = iui.radio(
-                "Smooth", tabState.imageFilter, "smooth"
-            )
-
-            tabState.imageFilter = iui.radio(
-                "Linear", tabState.imageFilter, "linear"
-            )
-
-            iui.divider()
-
-            iui.label("Fill Mode")
-            tabState.imageFillMode = iui.radio(
-                "Fill", tabState.imageFillMode, "fill"
-            )
-
-            tabState.imageFillMode = iui.radio(
-                "Aspect Fit", tabState.imageFillMode, "aspectFit"
-            )
-
-            tabState.imageFillMode = iui.radio(
-                "Aspect Fill", tabState.imageFillMode, "aspectFill"
-            )
-
-            tabState.imageFillMode = iui.radio(
-                "Center", tabState.imageFillMode, "center"
-            )
-
-            iui.divider()
-
-            tabState.imageClip = iui.checkbox(
-                "Clip to Bounds", tabState.imageClip
-            )
+            if tabWinState.selection == "simple" then
+                simple()
+            elseif tabWinState.selection == "9slice" then
+                nineSlice()
+            end
         end
     )
 

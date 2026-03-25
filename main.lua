@@ -13,7 +13,16 @@ function love.load()
     sample.load({
         gameSunsetImage = love.graphics.newImage(
             "sample/assets/game-sunset.png"
-        )
+        ),
+        nineSliceImage = {
+            image = love.graphics.newImage(
+                "sample/assets/ui-box-slice.png"
+            ),
+            l = 8,
+            t = 8,
+            r = 8,
+            b = 8
+        }
     })
 end
 
