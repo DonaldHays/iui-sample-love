@@ -7,6 +7,7 @@ local function tabImage()
     local assets = iui.style["assets"]           --- @type SampleAssets
 
     local tabWinState = windowState.imageTab
+    local tabState = appState.imageTab
 
     iui.style.push()
     iui.style["splitMinEdge"] = 200
@@ -24,9 +25,9 @@ local function tabImage()
             iui.layout.beginRow({ kind = "dynamic", count = 1 }, h - margin * 2)
 
             iui.style.push()
-            iui.style["imageFilter"] = appState.imageFilter
-            iui.style["imageMode"] = appState.imageFillMode
-            iui.style["imageClip"] = appState.imageClip
+            iui.style["imageFilter"] = tabState.imageFilter
+            iui.style["imageMode"] = tabState.imageFillMode
+            iui.style["imageClip"] = tabState.imageClip
 
             iui.image(assets.gameSunsetImage)
 
@@ -34,41 +35,41 @@ local function tabImage()
         end,
         function()
             iui.label("Filter")
-            appState.imageFilter = iui.radio(
-                "Nearest", appState.imageFilter, "nearest"
+            tabState.imageFilter = iui.radio(
+                "Nearest", tabState.imageFilter, "nearest"
             )
 
-            appState.imageFilter = iui.radio(
-                "Smooth", appState.imageFilter, "smooth"
+            tabState.imageFilter = iui.radio(
+                "Smooth", tabState.imageFilter, "smooth"
             )
 
-            appState.imageFilter = iui.radio(
-                "Linear", appState.imageFilter, "linear"
+            tabState.imageFilter = iui.radio(
+                "Linear", tabState.imageFilter, "linear"
             )
 
             iui.divider()
 
             iui.label("Fill Mode")
-            appState.imageFillMode = iui.radio(
-                "Fill", appState.imageFillMode, "fill"
+            tabState.imageFillMode = iui.radio(
+                "Fill", tabState.imageFillMode, "fill"
             )
 
-            appState.imageFillMode = iui.radio(
-                "Aspect Fit", appState.imageFillMode, "aspectFit"
+            tabState.imageFillMode = iui.radio(
+                "Aspect Fit", tabState.imageFillMode, "aspectFit"
             )
 
-            appState.imageFillMode = iui.radio(
-                "Aspect Fill", appState.imageFillMode, "aspectFill"
+            tabState.imageFillMode = iui.radio(
+                "Aspect Fill", tabState.imageFillMode, "aspectFill"
             )
 
-            appState.imageFillMode = iui.radio(
-                "Center", appState.imageFillMode, "center"
+            tabState.imageFillMode = iui.radio(
+                "Center", tabState.imageFillMode, "center"
             )
 
             iui.divider()
 
-            appState.imageClip = iui.checkbox(
-                "Clip to Bounds", appState.imageClip
+            tabState.imageClip = iui.checkbox(
+                "Clip to Bounds", tabState.imageClip
             )
         end
     )

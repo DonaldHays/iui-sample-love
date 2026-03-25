@@ -1,10 +1,7 @@
 local MainTabWindowState = require "sample.features.main-tab.models.window-state"
+local ImageTabWindowState = require "sample.features.image-tab.models.window-state"
 
 --- @alias TabValue "tabA" | "tabB" | "tabC" | "tabD"
-
---- @class ImageTabWindowState
---- @field leftSplitValue number
---- @field rightSplitValue number
 
 --- @class SampleWindowState
 --- @field selectedTab TabValue
@@ -17,10 +14,7 @@ function SampleWindowState.new()
     return {
         selectedTab = "tabA",
         mainTab = MainTabWindowState.new(),
-        imageTab = {
-            leftSplitValue = 200,
-            rightSplitValue = 300,
-        }
+        imageTab = ImageTabWindowState.new(),
     }
 end
 
