@@ -22,7 +22,11 @@ function love.load()
             t = 8,
             r = 8,
             b = 8
-        }
+        },
+        checkmarkMSDFImage = love.graphics.newImage(
+            "lib/iui/assets/glyph-checkmark.png",
+            { linear = true, mipmaps = false }
+        )
     })
 end
 
