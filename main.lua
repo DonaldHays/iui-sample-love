@@ -26,7 +26,17 @@ function love.load()
         checkmarkMSDFImage = love.graphics.newImage(
             "lib/iui/assets/glyph-checkmark.png",
             { linear = true, mipmaps = false }
-        )
+        ),
+        nineSliceMSDFImage = {
+            image = love.graphics.newImage(
+                "sample/assets/nine-slice-frame.png",
+                { linear = true, mipmaps = false }
+            ),
+            l = 16,
+            t = 24,
+            r = 16,
+            b = 24
+        }
     })
 end
 
