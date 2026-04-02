@@ -23,10 +23,22 @@ function love.load()
             r = 8,
             b = 8
         },
-        checkmarkMSDFImage = love.graphics.newImage(
-            "lib/iui/assets/glyph-checkmark.png",
-            { linear = true, mipmaps = false }
-        ),
+        smileMSDFLayeredImage = {
+            {
+                image = love.graphics.newImage(
+                    "sample/assets/smile-bg.png",
+                    { linear = true, mipmaps = false }
+                ),
+                color = iui.newColor(0.944, 0.794, 0.468)
+            },
+            {
+                image = love.graphics.newImage(
+                    "sample/assets/smile-fg.png",
+                    { linear = true, mipmaps = false }
+                ),
+                color = iui.newColor(0.157, 0.157, 0.157)
+            }
+        },
         nineSliceMSDFImage = {
             image = love.graphics.newImage(
                 "sample/assets/nine-slice-frame.png",
