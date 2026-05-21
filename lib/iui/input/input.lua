@@ -19,7 +19,7 @@ local input = {
 --- @field pressed IUISet<number>
 --- @field released IUISet<number>
 --- @field newRootContext fun(): IUIMouseRootContext
---- @field setRootContext fun(rootContext: IUIRootContext)
+--- @field setRootContext fun(rootContext: IUIMouseRootContext)
 --- @field endFrame fun()
 --- @field resetVelocity fun()
 --- @field getVelocity fun(): number, number
@@ -30,8 +30,7 @@ local input = {
 --- @field down IUISet<string>
 --- @field pressed table<string, IUIKeyPressed>
 --- @field released IUISet<string>
---- @field newRootContext fun(): IUIKeyboardRootContext
---- @field setRootContext fun(rootContext: IUIRootContext)
+--- @field load fun()
 --- @field endFrame fun()
 --- @field setActive fun(active: boolean)
 --- @field getPrimaryModifierKeycode fun(): string

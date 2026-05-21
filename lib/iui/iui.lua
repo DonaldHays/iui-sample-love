@@ -20,8 +20,11 @@ local currentCursor = nil
 --- @type table<IUICursorName, IUICursor>
 local cursors = {}
 
---- @type IUIRootContext
-local rootContext
+--- @type IUIWindowManager
+local windowManager
+
+--- @type IUISet<IUIWindowManager>
+local processedWindowManagers
 
 local rootKeys = {
     disabledCount = true,
@@ -34,14 +37,14 @@ local rootKeys = {
 setmetatable(iui, {
     __index = function(t, k)
         if rootKeys[k] then
-            return rootContext[k]
+            return windowManager[k]
         end
 
         return nil
     end,
     __newindex = function(t, k, v)
         if rootKeys[k] then
-            rootContext[k] = v
+            windowManager[k] = v
         else
             rawset(t, k, v)
         end
@@ -61,6 +64,8 @@ function iui.load(backend, config)
     iui.backend = backend
     iui.graphics = iui.drawQueue
 
+    iui.input.load()
+
     iui.drawQueue.setBackend(backend.graphics)
 
     backend.load(iui)
@@ -74,19 +79,19 @@ function iui.load(backend, config)
     iui.style.load()
 end
 
---- @param newRootContext IUIRootContext
-function iui.setRootContext(newRootContext)
-    rootContext = newRootContext
+--- @param newWindowManager IUIWindowManager
+function iui.setWindowManager(newWindowManager)
+    windowManager = newWindowManager
 
-    iui.input.setRootContext(rootContext)
-    iui.draw.setRootContext(rootContext)
-    iui.layer.setRootContext(rootContext)
-    iui.state.setRootContext(newRootContext)
+    iui.draw.setWindowManager(windowManager)
+    iui.layer.setWindowManager(windowManager)
+    iui.state.setWindowManager(windowManager)
 end
 
 --- @param dt number
 function iui.beginFrame(dt)
     iui.dt = dt
+    processedWindowManagers = iui.set.new()
 
     iui.backend.beginFrame(dt)
 end
@@ -94,6 +99,17 @@ end
 --- @param width number
 --- @param height number
 function iui.beginWindow(width, height)
+    --- @type IUIWindowManager
+    local manager = iui.backend.getFullscreenWindowManager()
+
+    if processedWindowManagers:has(manager) then
+        error("window manager already processed this frame")
+    end
+    processedWindowManagers:put(manager)
+
+    iui.setWindowManager(manager)
+    windowManager:beginFrame()
+
     iui.layout.windowWidth = width
     iui.layout.windowHeight = height
     iui.draw.setWindowSize(width, height)
@@ -103,10 +119,13 @@ end
 
 function iui.endWindow()
     iui.layout.endPanel()
+
+    windowManager:endFrame()
 end
 
 function iui.endFrame()
     iui.backend.endFrame()
+    iui.input.endFrame()
 
     if currentCursor ~= iui.cursor then
         currentCursor = iui.cursor

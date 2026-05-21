@@ -3,8 +3,7 @@ local currentPath = (...):match('(.-)[^%./]+$')
 --- @class IUILib
 local iui = require(currentPath .. "iui")
 
---- @class IUIRootContext
---- @field input IUIInputRootContext
+--- @class IUIWindowManager
 --- @field draw IUIDrawRootContext
 --- @field layer IUILayerRootContext
 --- @field state IUIStateRootContext
@@ -13,26 +12,25 @@ local iui = require(currentPath .. "iui")
 --- @field activeID? number The ID of the widget that's being actively used.
 --- @field cursor? IUICursorName The desired mouse cursor to display.
 --- @field hadActiveID boolean Internal flag for detecting widget deactivation.
-local IUIRootContext = {}
-IUIRootContext.__index = IUIRootContext
+local IUIWindowManager = {}
+IUIWindowManager.__index = IUIWindowManager
 
---- @return IUIRootContext
-function iui.newRootContext()
-    --- @type IUIRootContext
-    local context = {
-        input = iui.input.newRootContext(),
+--- @return IUIWindowManager
+function iui.newWindowManager()
+    --- @type IUIWindowManager
+    local manager = {
         draw = iui.draw.newRootContext(),
         layer = iui.layer.newRootContext(),
         state = iui.state.newRootContext(),
         disabledCount = 0,
         hadActiveID = false,
     }
-    setmetatable(context, IUIRootContext)
+    setmetatable(manager, IUIWindowManager)
 
-    return context
+    return manager
 end
 
-function IUIRootContext:beginFrame()
+function IUIWindowManager:beginFrame()
     iui.disabledCount = 0
     iui.hoverID = nil
     iui.cursor = nil
@@ -45,7 +43,7 @@ function IUIRootContext:beginFrame()
     iui.layer.beginFrame()
 end
 
-function IUIRootContext:endFrame()
+function IUIWindowManager:endFrame()
     if iui.disabledCount ~= 0 then
         error("Unbalanced control disable count")
     end
@@ -58,7 +56,6 @@ function IUIRootContext:endFrame()
         end
     end
 
-    iui.input.endFrame()
     iui.layout.endFrame()
     iui.draw.endFrame()
     iui.layer.endFrame()

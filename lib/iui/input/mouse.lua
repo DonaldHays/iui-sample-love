@@ -107,9 +107,9 @@ function mouse.newRootContext()
     }
 end
 
---- @param rootContext  IUIRootContext
+--- @param rootContext IUIMouseRootContext
 function mouse.setRootContext(rootContext)
-    ctx = rootContext.input.mouse
+    ctx = rootContext
 
     mouse.__index = ctx.storage
 end
